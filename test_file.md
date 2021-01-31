@@ -1,23 +1,4 @@
-<html>
-<head><meta http-equiv=Content-Type content="text/html; charset=UTF-8">
-<style type="text/css">
-<!--
-span.cls_002{font-family:"Calibri Bold",serif;font-size:16.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-div.cls_002{font-family:"Calibri Bold",serif;font-size:16.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-span.cls_004{font-family:"Calibri",serif;font-size:12.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
-div.cls_004{font-family:"Calibri",serif;font-size:12.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
-span.cls_005{font-family:"Calibri",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
-div.cls_005{font-family:"Calibri",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
-span.cls_007{font-family:Arial,serif;font-size:12.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
-div.cls_007{font-family:Arial,serif;font-size:12.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
-span.cls_008{font-family:"Calibri",serif;font-size:14.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
-div.cls_008{font-family:"Calibri",serif;font-size:14.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
-span.cls_010{font-family:"Calibri",serif;font-size:12.1px;color:rgb(4,98,193);font-weight:normal;font-style:normal;text-decoration: underline}
-div.cls_010{font-family:"Calibri",serif;font-size:12.1px;color:rgb(4,98,193);font-weight:normal;font-style:normal;text-decoration: none}
--->
-</style>
-<script type="text/javascript" src="849e1844-6380-11eb-8b25-0cc47a792c0a_id_849e1844-6380-11eb-8b25-0cc47a792c0a_files/wz_jsgraphics.js"></script>
-</head>
+
 <body>
 <div style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
