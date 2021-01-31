@@ -19,43 +19,71 @@ Estas instrucciones, asumen que las cuentas han sido creadas antes de iniciar el
 
 ### Parte 1 (Preparación de los datos en BigQuery)
 a.	Estando ubicado en la consola de google cloud (https://console.cloud.google.com/), procesa a realizar el acceso a la herramienta BigQuery, la imagen a continuación describe el ingreso (las zonas marcadas en amarillo, muestran los puntos de contacto).
+
 ![1a](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1a.png)
+
 b.	Una vez adentro de BigQuery, seleccione en el menú izquierdo la opción marcado como espacio de trabajo de SQL, una vez presionado se despliega un espacio marcado como Explorador, en los tres puntos verticales ubicados en el lado superior izquierdo del Explorador presione (+AGREGAR DATOS) y de ahí en la opción (Explorar conjuntos de datos ppúblicos).
+
 ![1b](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1b.png)
+
 c.	La acción del paso (b) genera el despliegue de una nueva ventana, una vez ahí introduzca el texto: “covid-19 open data” en la barra de búsqueda y seleccione el resultado etiquetado como: “COVID-19 Open Data”, la imagen a continuación muestra el proceso:
+
  ![1c](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1c.png)
+ 
 d.	En la ventana desplegada tras la selección del paso (c), presione en el botón “Ver Conjunto de Datos”. Esto generará que regrese a la ventana anterior, pero en su explorador se habrá fijado un nuevo proyecto (ver paso e).
+
  ![1d](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1d.png)
+ 
 e.	Ahora vamos a crear un conjunto de datos en nuestro proyecto, sobre el cuál copiaremos los datos del proyecto de datos abiertos
 f.	Seleccione su proyecto y posteriormente en el área de trabajo (a la derecha del explorador) presione el botón “Crear Conjunto de Datos”
+
  ![1f](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1f.png)
 
 g.	En la ventana lateral que despliega el botón, indique el nombre del conjunto de datos, marque predeterminada, sin vencimiento y clave administrada por google. Finalmente presione “Crear conjunto de datos” en la parte inferior.
  
-h.	La acción previa generó un conjunto de datos asociados a su proyecto (1 en la siguiente imagen), pero por ahora no tiene ninguna tabla, vamos ahora a traer los datos del proyecto de datos abiertos (2 en la siguiente imagen).
+  ![1f](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1f.png)
  
-
+h.	La acción previa generó un conjunto de datos asociados a su proyecto (1 en la siguiente imagen), pero por ahora no tiene ninguna tabla, vamos ahora a traer los datos del proyecto de datos abiertos (2 en la siguiente imagen).
+  
+  ![1f](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1h.png)
+ 
 i.	En la ventana del explorador ahora usted tiene además de su proyecto un proyecto llamado: “bigquery-public-data” (agregado en el paso (d)). Al desplegar este usted verá los conjuntos de datos disponibles:
  
+  ![1f](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1i.png)
+ 
 j.	Dentro de los datos desplegados en el paso (i), busque uno llamado: “covid_19_open_data”, si lo prefiere use este texto en el buscador para acelerar el proceso.
- 
+
+   ![1f](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1j.png)
+  
 k.	Ahora necesitamos transferir estos datos del proyecto de datos abiertos al proyecto personal, para esto seleccione el conjunto de datos con el nombre indicado en el paso (j) y en la información desplegada en el área de trabajo (a la derecha del explorador), identifique y presione el botón con nombre “Copiar conjunto de datos” (2 en la imagen siguiente).
- 
+
+   ![1f](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1k.png)
+  
 l.	El paso (k) ha desplegado una ventana emergente, seleccione en esta el nombre del proyecto(1) y el conjunto de datos en el cuál desea copiar(2), marque la opción de reemplazo de tablas y presione el botón “copiar”(4). 
- 
+
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1l.png)
+  
 m.	Hecho el paso previo vamos a copiar la tabla de datos, pero ahora debemos activar las transferencias de datos, esto se hace presionando en la opción “Transferencia de datos” ubicada en el lado izquierdo debajo de la opción “Espacio de trabajo de SQL”
  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1l.png)
 
 n.	Con esta opción de transferencia seleccionada, presione activar en el API de transferencias y una vez completado el proceso proceda de regreso a la opción “Espacio de trabajo SQL” para realizar la copia de la tabla. (no funciona el paso siguiente si no se activa la API)
+
 o.	Estando ubicado en el “Espacio de trabajo SQL” (1), seleccione en el “Explorador” (2) el proyecto de datos abiertos, y busque nuevamente el conjunto de datos “covid19_open_data” (3), seleccione la tabla “covid19_open_data” (4). La imagen a continuación muestra los números.
+
+  ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1l.png)
  
 p.	Con la tabla seleccionada, presione el botón “copiar tabla” disponible en el lado derecho del área de trabajo en la parte superior.
+
+  ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1p.png)
  
 q.	En la ventana emergente lanzada por el botón seleccione la opción “buscar un proyecto” (1), después seleccione su proyecto personal (2) y el conjunto de datos que creamos antes en su proyecto (3), finalmente introduzca el nombre de la tabla que se creará en su proyecto personal (4) y para terminar presione el botón copiar (5).
  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1q.png)
 
 r.	La última acción debe dejar disponibles los datos dentro del proyecto personal (1), dentro de un conjunto de datos (2) y en la tabla con el nombre que le haya asignado (3).
  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1r.png)
 
 ### Parte 2 (Preparación de las credenciales de conexión entre GCP y Azure)
 Durante esta parte vamos a usar la consola de desarrolladores de google (https://console.developers.google.com/) y una cuenta de Postman (https://www.postman.com/), el tutorial asume que ya han sido creadas las cuentas.
