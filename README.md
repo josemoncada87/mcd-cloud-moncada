@@ -90,38 +90,60 @@ Durante esta parte vamos a usar la consola de desarrolladores de google (https:/
 
 a.	Estando en la consola de google, en el menú lateral izquierdo seleccione la opción “Credenciales” (1), vamos a crear una credencial de tipo OAuth 2.0 (2) y para ellos debemos presionar en “+Crear Credenciales”. (Asegurarse de tener seleccionado el proyecto correcto en la parte superior)
  
+ 
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2a.png)
 
 
 
 b.	En el desplegable seleccione: “ID de cliente de OAuth”
- 
+  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2b.png)
+
 
 c.	En la ventana seleccione como tipo de aplicación “App de escritorio” (1), después inserte el nombre que desee para la aplicación (2) y finalmente presione “crear” (3)
- 
+  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2c.png)
+
 d.	En la ventana siguiente, debes copiar los datos de ID de cliente y secreto de cliente (déjalos en un bloc de notas), los vamos a necesitar más adelante. Si lo cerraste y no lo copiaste, puedes ver estos datos al presionar sobre el ID de cliente en la sección de credenciales.
- 
+  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2d.png)
+
 
 e.	Con los códigos generados vamos a crear un token de autenticación, para ellos vamos a usar la siguiente dirección web, Ojo: Debes reemplazar: =<Your-client-Id> por el ID de cliente que acabas de copiar.
 
 https://accounts.google.com/o/oauth2/v2/auth?client_id=<Your-client-Id>&redirect_uri=urn:ietf:wg:oauth:2.0:oob&state=GBQAUthTest&access_type=offline&scope=https://www.googleapis.com/auth/bigquery&response_type=code
 
 f.	Al pegarlo en tu navegador, debes ver una entrada de cuenta, selecciona la cuenta Gmail que tiene el acceso a Google Cloud Platform (GCP). Accede con los datos de login. 
- 
+  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2f.png)
+
 g.	Si recibes un mensaje que dice “Google no verificó esta app”, debes presionar en configuración avanzada y en ir al app.
- 
+  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2g.png)
+
 h.	Marcar permitir en la siguiente ventana, si los permisos de la imagen no coinciden asegúrate de haber creado la cuenta asignando los permisos al usuario. 
+ 
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2h.png)
 
 i.	Verificar la selección de: “Consultar y administrar tus datos en Google BigQuery” y después en permitir.
 
- 
+  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2i.png)
+
 
 j.	Copia de la ventana siguiente el token correspondiente, este nos ayudará en la generación del código de refresco.
- 
+  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2j.png)
+
 k.	Ahora vamos a abrir Postman, en la ventana principal seleccionar la opción “CReate Request”:
  
+ 
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2k.png)
 
 l.	Para realizar la petición usaremos el método POST (1), con la dirección https://www.googleapis.com/oauth2/v4/token (2) , seleccionamos la pestaña “Body” (3) en la opción “raw” (4) y completamos los datos (después de la imagen siguiente dejo la plantilla en texto), (5)(6)(7) son los datos que vienen de la consola de desarrolladores de google. Code es el de autenticación, id y secreto son los del cliente Auth2.0 creado (App de escritorio). Presionar “send” para terminar.
- 
+  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2l.png)
+
 Plantilla:
 {
 "code":" <código> ",
@@ -131,7 +153,9 @@ Plantilla:
 "grant_type":"authorization_code"
 }
 m.	En el resultado obtenido, copiar el “refresh_token”, si no se obtuvo y aparece un “bad_request” debe generar de nuevo el “code” haciendo el proceso de autenticación:
- 
+  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/2m.png)
+
 n.	Con esto completamos la información necesaria para ir a Azure Datafactory en el siguiente paso.
 
 
