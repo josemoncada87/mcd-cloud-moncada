@@ -19,16 +19,16 @@ Estas instrucciones, asumen que las cuentas han sido creadas antes de iniciar el
 
 ### Parte 1 (Preparación de los datos en BigQuery)
 a.	Estando ubicado en la consola de google cloud (https://console.cloud.google.com/), procesa a realizar el acceso a la herramienta BigQuery, la imagen a continuación describe el ingreso (las zonas marcadas en amarillo, muestran los puntos de contacto).
-![1a](1a.png)
+![1a](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1a.png)
 b.	Una vez adentro de BigQuery, seleccione en el menú izquierdo la opción marcado como espacio de trabajo de SQL, una vez presionado se despliega un espacio marcado como Explorador, en los tres puntos verticales ubicados en el lado superior izquierdo del Explorador presione (+AGREGAR DATOS) y de ahí en la opción (Explorar conjuntos de datos ppúblicos).
- 
+![1b](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1b.png)
 c.	La acción del paso (b) genera el despliegue de una nueva ventana, una vez ahí introduzca el texto: “covid-19 open data” en la barra de búsqueda y seleccione el resultado etiquetado como: “COVID-19 Open Data”, la imagen a continuación muestra el proceso:
- 
+ ![1c](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1c.png)
 d.	En la ventana desplegada tras la selección del paso (c), presione en el botón “Ver Conjunto de Datos”. Esto generará que regrese a la ventana anterior, pero en su explorador se habrá fijado un nuevo proyecto (ver paso e).
- 
+ ![1d](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1d.png)
 e.	Ahora vamos a crear un conjunto de datos en nuestro proyecto, sobre el cuál copiaremos los datos del proyecto de datos abiertos
 f.	Seleccione su proyecto y posteriormente en el área de trabajo (a la derecha del explorador) presione el botón “Crear Conjunto de Datos”
- 
+ ![1f](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/1f.png)
 
 g.	En la ventana lateral que despliega el botón, indique el nombre del conjunto de datos, marque predeterminada, sin vencimiento y clave administrada por google. Finalmente presione “Crear conjunto de datos” en la parte inferior.
  
