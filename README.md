@@ -163,132 +163,234 @@ n.	Con esto completamos la información necesaria para ir a Azure Datafactory en
 En este paso vamos a configurar un pipeline de Azure DataFactory, para que nos traiga los datos desde BigQuery, los datos quedarán alojados en un Blob Storage (también de Azure) dentro de su respectivo contenedor y asociado a una cuenta de almacenamiento.
 a.	Vamos a crear una cuenta de almacenamiento, para eso vamos a la página principal de Azure https://portal.azure.com/#home, de ahí vamos a seleccionar la opción “Cuenta de almacenamiento”.
  
+   ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3a.png)
+
+ 
 b.	Dentro del gestor, presionamos “agregar”
+ 
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3b.png)
+
+
  
 c.	En la ventana que se lanza, vamos a insertar los datos. Seleccione primero una suscripción (1), después indique cuál es el grupo de recursos (2), si no tiene ninguno debe crear uno (2.1), después inserte el nombre de la cuenta de almacenamiento (3), seleccione la ubicación más cercana (4), marque Estándar en el rendimiento (5) y seleccione el tipo de cuenta en la versión más actual (6), seleccione el nivel de redundancia deseado (7) y presione “revisar y crear” (8).
  
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3c.png)
 
 d.	Dejamos los otros datos por defecto y al finalizar debemos ver la cuenta creada en el listado de cuentas de almacenamiento.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3d.png)
  
 e.	Ingresamos a la cuenta de almacenamiento (1) y nos disponemos a crear un contenedor para esto (3) en la información general (2). Presionamos sobre “contenedores”.
 
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3e.png)
  
 f.	Vamos a crear un contendor, para esto presionamos en “+Contenedor”´(1). En el costado derecho se despliega un lateral, para que insertemos el nombre del contenedor (2), el nivel de acceso puede quedar en “privado”. Finalizamos presionando el botón crear en la parte inferior del lateral. 
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3f.png)
  
 g.	Al finalizar este proceso debe verse un contendor en l listado, con el nombre seleccionado.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3g.png)
  
 h.	Ahora que tenemos una cuenta de almacenamiento, un grupo de recursos y un contenedor. Vamos a comenzar con la configuración del pipeline. Para ellos vamos a DataFactory, para ingresar regresamos al home de Azure (https://portal.azure.com/#home) y de ahí seleccionamos DataFactories.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3h.png)
  
 i.	Al ingresar seleccionamos “+agregar” y eso nos lleva a la ventana de creación.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3i.png)
  
 j.	En la ventana de creación, vamos a llenar los datos de la pestaña básico, seleccionamos la suscripción (1), el grupo de recursos que ya habíamos creado (2), asignamos una región (3) y un nombre y versión (4)(5).
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3j.png)
  
 k.	Vamos a la pestaña de configuración de git y seleccionamos configurar después:
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3k.png)
  
 l.	Presionamos revisar y crear, después nuevamente en el botón crear en la parte inferior.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3l.png)
  
 m.	La implementación tomará un tiempo, pero al finalizar debes presionar “ir al recurso”.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3m.png)
  
 n.	Al entrar al recurso, debemos presionar en “Author & Monitor”
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3n.png)
  
 o.	En la instancia, vamos a seleccionar “Create PipeLine”
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3o.png)
  
 p.	En los recursos, presionamos + (1) y seleccionamos el pipeline (2)
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3p.png)
  
 q.	Después ingresamos las propiedades y listo.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3q.png)
  
 r.	Adicionamos un “CopyData” de las actividades (arrastrar al área de trabajo).
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/3r.png)
  
 
 ### Parte 3.1 (Creación de Source & Sink en el Pipeline del Data Factory)
 
 a.	A partir de este punto vamos a construir el Origen(Source) de los datos y el destino (Sink). Para esto teniendo seleccionado el componente “copy data”, seleccione la pestaña “Source” y cree un nuevo “Source dataset” presionando sobre el “+New” (2).
+
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31a.png)
  
 b.	En el lateral desplegable, escriba en la barra de búsqueda big (1) y seleccione el componente Google BigQuery (2) y después en el botón “continue”.
  
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31b.png)
+
 c.	Para completar la Edición seleccione el componente y presione “Open”, verifique que ha abierto el componente y en la pestaña de conexión en “Linked Service” presione el “+New”.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31c.png)
  
 d.	Al presionar New, debemos configurar la conexión usando las cadenas que adquirimos durante el Paso de autenticación.  Agregamos una descripción (1), después dejamos que de manera automática se seleccione el runtime de integración, sacamos el proyecto id del proyecto de BigQuery en Google Cloud Platform (3), marcamos como falso la solictud de acceso a drive (4), Copiamos el Client-ID que nos dieron en la consola de desarrolladores de google (5) e introducimos el secret y el refresh token (7)(8).  Y completamos el paso.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31d.png)
  
 e.	Realizamos la prueba de conexión y finalizamos.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31e.png)
  
 f.	Con la conexión probada, probada refrescamos (1) y seleccionamos la table (2). Este nombre de tabla es el mismo que tenemos en BigQuery.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31f.png)
  
 g.	Con esto completamos la creación del Source. Y regresamos al Pipeline en la pestaña para crear el Sink(1), presionamos “+New” (2) para continuar en el proceso.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31g.png)
  
 h.	En el lateral desplegado, escribir “blob” en la barra de búsqueda (1) y después seleccionar el dataset “Azure Blob Storage” (2).
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31h.png)
  
 i.	En las opciones seleccionar Parquet (ocupa menos espacio, pero se tarda un poco más en traerlo desde BigQuery).
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31i.png)
  
 j.	Asignamos un nombre y en el “linked Service” presionamos para crear uno nuevo.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31j.png)
  
 k.	En el desplegable, incluimos los datos solicitados: nombre del servicio (1), descripción (2) , indicamos que sea de una suscripción de Azure (3) y marcamos la conexión y la cuenta (4)(5), indicamos que el tipo de prueba de conexión sea “To linked service” (6) y probamos la conexión, una vez probada presionamos el botón “crear” (8).
  
+ ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31k.png)
 
 l.	Marcamos las propiedades con el nombre del parquet (1), el servicio vinculado (2) y la ruta (seleccionando desde la carpeta (3)), indicamos que el esquema proviene de la conexión o esquema y finalizamos con el botón “OK/Create”.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31l.png)
  
 m.	Dejamos en Copy behavior: None y pasamos a la pestaña de Mapping (Aquí se puede personalizar la forma de conversión de los campos de las tablas)
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31m.png)
  
 n.	Para traer los Esquemas desde la conexión presionamos “Import schemas” y listo.
- 
 
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31n.png)
 
 o.	 Terminamos, las pestañas de Settings y User Properties quedan por defecto.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31o.png)
+
 p.	 Ahora vamos a publicar y para ello presionamos “publish all”, se debe ver un número 3. Y debe salir que no hay errores, de lo contrario deben corregirse con las recomendaciones que brinda la interfaz
- 
- 
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31p.png)
+  
 q.	Finalmente vamos a ejecutar el pipeline, para ello se selecciona el pipeline y se presiona en “Add trigger”  seguido de “Trigger now” (2). 
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31q.png)
  
 r.	Al ejecutarlo, podemos ver en el monitor (1) el progreso y una vez finalizado aparecerá verde (2).
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/31r.png)
  
 s.	Con esto se da por finalizado y ahora los datos están en Azure Blob Storage.
-
-
 
 ### Parte 4 (Conexión con Azure Databricks).
 Durante esta parte crearemos un cluster de Azure Databricks y probaremos algunas consultas básicas.
 a.	Desde el home de Azure, ingresamos a Azure DataBricks.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4a.png)
  
 b.	Presionamos “+ Agregar” para crear una nueva instancia.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4b.png)
  
 c.	Procedemos a configurar la instancia, insertamos los datos básicos y seleccionamos los elementos de nuestra suscripción creada.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4c.png)
  
 d.	Esperamos la implementación.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4d.png)
  
 e.	Al finalizar presionar en ir al recurso.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4e.png)
  
 f.	Presionar ir al recurso, y proceder a iniciar área de trabajo 
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4f.png)
   
 
 g.	Ahí en la barra izquierda seleccionamos los clusters
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4g.png)
  
 
 h.	Asignamos un nombre, seleccionamos un solo nodo y la versión 7.5 ML sin GPU.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4h.png)
  
 i.	Creamos un nuevo notebook.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4i.png)
  
 j.	Incluimos el código disponible en el html (databricks) usando los datos propios de su conexión.
 k.	Revisar las consultas SQL.
  
+ ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4k1.png)
  
+ ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4k2.png)
+ 
+ ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4k3.png)
+ 
+ ![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/4k4.png)
  
  
 l.	Al finalizar el proceso, los datos han sido creados en el cluster y pueden ser capturados desde PowerBI.
 
 
 
-
 ### Parte 5 (Conexión con Power BI).
 En esta última parte usaremos el conector que trae la versión más reciente de PowerBI para conectarse a Azure Databricks.
 a.	Al iniciar Power BI, presione en obtener Datos:
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/5a.png)
  
 b.	Use la barra de búsqueda y seleccione el conector de Azure Databricks
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/5b.png)
  
 c.	Capture los datos del cluster en la configuración, opciones avanzadas. Y complete la información solicitada por el conector.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/5c.png)
  
 d.	Navegue en el árbol de carpetas hasta la tabla y selecciónela, para después presionar “cargar”
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/5d.png)
  
 e.	Crea algunos objetos visuales y con eso habremos finalizado el proceso.
+
+![1l](https://github.com/josemoncada87/mcd-cloud-moncada/blob/main/images/5e.png)
 
 
 
