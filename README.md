@@ -1,10 +1,13 @@
-Manual de conexión entre BigQuery (Google Cloud) y PowerBi (Azure Cloud) pasando por DataBricks.
+# Manual de conexión entre BigQuery (Google Cloud) y PowerBi (Azure Cloud) pasando por DataBricks.
 
-Descripción del objetivo del manual
+## Descripción del objetivo del manual
 Visualizar en PowerBI los datos abiertos relacionados con el COVID-19 almacenados en Google Cloud (GCP)
-Descripción general del proceso
+
+## Descripción general del proceso
+
 El proceso a que será descrito de manera detallada a continuación, genera un flujo de datos que tiene origen en un conjunto de datos abiertos de google (https://console.cloud.google.com/marketplace/product/bigquery-public-datasets/covid19-public-data-program), el cuál es capturado en un proyecto de BigQuery herramienta de Google Cloud, desde dónde es extraído a través de la herramienta Azure Dataflow bajo autenticación OAuth 2.0 (Claves generadas desde la consola de desarrolladores), estos datos terminan almacenados en una Blob Storage de Azure (dentro de su respectivo contenedor). Desde esa ubicación son cargados a un cluster de Azure Databricks usando una conexión JDBC, posteriormente se les realizan algunos procesamientos y consultas para finalmente a través de un conector de PowerBI visualizar la información resultante. 
-¿Qué vamos a necesitar?
+
+## ¿Qué vamos a necesitar?
 1.	Cuenta de Google Cloud, se puede crear en: https://cloud.google.com/free
 2.	Cuenta de Microsoft Azure, se puede crear en: https://my.visualstudio.com
 3.	Cuenta de Postman, se puede crear en: https://www.postman.com/
@@ -14,9 +17,9 @@ Instrucciones
 Estas instrucciones, asumen que las cuentas han sido creadas antes de iniciar el proceso. Las herramientas están configuradas en español por lo que si su versión está en inglés podrían diferir los nombres.
 
 
-Parte 1 (Preparación de los datos en BigQuery)
+### Parte 1 (Preparación de los datos en BigQuery)
 a.	Estando ubicado en la consola de google cloud (https://console.cloud.google.com/), procesa a realizar el acceso a la herramienta BigQuery, la imagen a continuación describe el ingreso (las zonas marcadas en amarillo, muestran los puntos de contacto).
- 
+![1a](1a.png)
 b.	Una vez adentro de BigQuery, seleccione en el menú izquierdo la opción marcado como espacio de trabajo de SQL, una vez presionado se despliega un espacio marcado como Explorador, en los tres puntos verticales ubicados en el lado superior izquierdo del Explorador presione (+AGREGAR DATOS) y de ahí en la opción (Explorar conjuntos de datos ppúblicos).
  
 c.	La acción del paso (b) genera el despliegue de una nueva ventana, una vez ahí introduzca el texto: “covid-19 open data” en la barra de búsqueda y seleccione el resultado etiquetado como: “COVID-19 Open Data”, la imagen a continuación muestra el proceso:
@@ -53,7 +56,8 @@ q.	En la ventana emergente lanzada por el botón seleccione la opción “buscar
 
 r.	La última acción debe dejar disponibles los datos dentro del proyecto personal (1), dentro de un conjunto de datos (2) y en la tabla con el nombre que le haya asignado (3).
  
-Parte 2 (Preparación de las credenciales de conexión entre GCP y Azure)
+
+### Parte 2 (Preparación de las credenciales de conexión entre GCP y Azure)
 Durante esta parte vamos a usar la consola de desarrolladores de google (https://console.developers.google.com/) y una cuenta de Postman (https://www.postman.com/), el tutorial asume que ya han sido creadas las cuentas.
 
 a.	Estando en la consola de google, en el menú lateral izquierdo seleccione la opción “Credenciales” (1), vamos a crear una credencial de tipo OAuth 2.0 (2) y para ellos debemos presionar en “+Crear Credenciales”. (Asegurarse de tener seleccionado el proyecto correcto en la parte superior)
@@ -102,7 +106,8 @@ m.	En el resultado obtenido, copiar el “refresh_token”, si no se obtuvo y ap
  
 n.	Con esto completamos la información necesaria para ir a Azure Datafactory en el siguiente paso.
 
-Parte 3 (Configuración del Azure DataFactory)
+
+### Parte 3 (Configuración del Azure DataFactory)
 En este paso vamos a configurar un pipeline de Azure DataFactory, para que nos traiga los datos desde BigQuery, los datos quedarán alojados en un Blob Storage (también de Azure) dentro de su respectivo contenedor y asociado a una cuenta de almacenamiento.
 a.	Vamos a crear una cuenta de almacenamiento, para eso vamos a la página principal de Azure https://portal.azure.com/#home, de ahí vamos a seleccionar la opción “Cuenta de almacenamiento”.
  
@@ -142,7 +147,8 @@ q.	Después ingresamos las propiedades y listo.
  
 r.	Adicionamos un “CopyData” de las actividades (arrastrar al área de trabajo).
  
-Parte 3.1 (Creación de Source & Sink en el Pipeline del Data Factory)
+
+### Parte 3.1 (Creación de Source & Sink en el Pipeline del Data Factory)
 
 a.	A partir de este punto vamos a construir el Origen(Source) de los datos y el destino (Sink). Para esto teniendo seleccionado el componente “copy data”, seleccione la pestaña “Source” y cree un nuevo “Source dataset” presionando sobre el “+New” (2).
  
@@ -186,7 +192,8 @@ r.	Al ejecutarlo, podemos ver en el monitor (1) el progreso y una vez finalizado
 s.	Con esto se da por finalizado y ahora los datos están en Azure Blob Storage.
 
 
-Parte 4 (Conexión con Azure Databricks).
+
+### Parte 4 (Conexión con Azure Databricks).
 Durante esta parte crearemos un cluster de Azure Databricks y probaremos algunas consultas básicas.
 a.	Desde el home de Azure, ingresamos a Azure DataBricks.
  
@@ -218,7 +225,8 @@ l.	Al finalizar el proceso, los datos han sido creados en el cluster y pueden se
 
 
 
-Parte 5 (Conexión con Power BI).
+
+### Parte 5 (Conexión con Power BI).
 En esta última parte usaremos el conector que trae la versión más reciente de PowerBI para conectarse a Azure Databricks.
 a.	Al iniciar Power BI, presione en obtener Datos:
  
