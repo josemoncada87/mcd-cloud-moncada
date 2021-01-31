@@ -1,12 +1,9 @@
-# mcd-cloud-moncada
-
 Manual de conexión entre BigQuery (Google Cloud) y PowerBi (Azure Cloud) pasando por DataBricks.
 
 Descripción del objetivo del manual
 Visualizar en PowerBI los datos abiertos relacionados con el COVID-19 almacenados en Google Cloud (GCP)
 Descripción general del proceso
-El proceso a que será descrito de manera detallada a continuación, genera un flujo de datos que tiene origen en un conjunto de datos abiertos de google (https://console.cloud.google.com/marketplace/product/bigquery-public-datasets/covid19-public-data-program), el cuál es capturado en un proyecto de BigQuery herramienta de Google Cloud, desde dónde es extraído a través de la herramienta Azure Dataflow bajo autenticación OAuth 2.0 (Claves generadas desde la consola de desarrolladores), estos datos terminan almacenados en una Blob Storage de Azure (dentro de su respectivo contenedor). Desde esa ubicación son cargados a un cluster de Azure Databricks usando una conexión JDBC, posteriormente se les realizan algunos procesamientos y consultas para finalmente a través de un conector de PowerBI visualizar la información resultante. El siguiente diagrama describe los pasos del flujo de datos:
-[Diagrama general de la solución]
+El proceso a que será descrito de manera detallada a continuación, genera un flujo de datos que tiene origen en un conjunto de datos abiertos de google (https://console.cloud.google.com/marketplace/product/bigquery-public-datasets/covid19-public-data-program), el cuál es capturado en un proyecto de BigQuery herramienta de Google Cloud, desde dónde es extraído a través de la herramienta Azure Dataflow bajo autenticación OAuth 2.0 (Claves generadas desde la consola de desarrolladores), estos datos terminan almacenados en una Blob Storage de Azure (dentro de su respectivo contenedor). Desde esa ubicación son cargados a un cluster de Azure Databricks usando una conexión JDBC, posteriormente se les realizan algunos procesamientos y consultas para finalmente a través de un conector de PowerBI visualizar la información resultante. 
 ¿Qué vamos a necesitar?
 1.	Cuenta de Google Cloud, se puede crear en: https://cloud.google.com/free
 2.	Cuenta de Microsoft Azure, se puede crear en: https://my.visualstudio.com
@@ -145,7 +142,96 @@ q.	Después ingresamos las propiedades y listo.
  
 r.	Adicionamos un “CopyData” de las actividades (arrastrar al área de trabajo).
  
-s.	A partir de este punto vamos a construir el Origen(Source) de los datos y el destino (Sink).
+Parte 3.1 (Creación de Source & Sink en el Pipeline del Data Factory)
+
+a.	A partir de este punto vamos a construir el Origen(Source) de los datos y el destino (Sink). Para esto teniendo seleccionado el componente “copy data”, seleccione la pestaña “Source” y cree un nuevo “Source dataset” presionando sobre el “+New” (2).
+ 
+b.	En el lateral desplegable, escriba en la barra de búsqueda big (1) y seleccione el componente Google BigQuery (2) y después en el botón “continue”.
+ 
+c.	Para completar la Edición seleccione el componente y presione “Open”, verifique que ha abierto el componente y en la pestaña de conexión en “Linked Service” presione el “+New”.
+ 
+d.	Al presionar New, debemos configurar la conexión usando las cadenas que adquirimos durante el Paso de autenticación.  Agregamos una descripción (1), después dejamos que de manera automática se seleccione el runtime de integración, sacamos el proyecto id del proyecto de BigQuery en Google Cloud Platform (3), marcamos como falso la solictud de acceso a drive (4), Copiamos el Client-ID que nos dieron en la consola de desarrolladores de google (5) e introducimos el secret y el refresh token (7)(8).  Y completamos el paso.
+ 
+e.	Realizamos la prueba de conexión y finalizamos.
+ 
+f.	Con la conexión probada, probada refrescamos (1) y seleccionamos la table (2). Este nombre de tabla es el mismo que tenemos en BigQuery.
+ 
+g.	Con esto completamos la creación del Source. Y regresamos al Pipeline en la pestaña para crear el Sink(1), presionamos “+New” (2) para continuar en el proceso.
+ 
+h.	En el lateral desplegado, escribir “blob” en la barra de búsqueda (1) y después seleccionar el dataset “Azure Blob Storage” (2).
+ 
+i.	En las opciones seleccionar Parquet (ocupa menos espacio, pero se tarda un poco más en traerlo desde BigQuery).
+ 
+j.	Asignamos un nombre y en el “linked Service” presionamos para crear uno nuevo.
+ 
+k.	En el desplegable, incluimos los datos solicitados: nombre del servicio (1), descripción (2) , indicamos que sea de una suscripción de Azure (3) y marcamos la conexión y la cuenta (4)(5), indicamos que el tipo de prueba de conexión sea “To linked service” (6) y probamos la conexión, una vez probada presionamos el botón “crear” (8).
+ 
+
+l.	Marcamos las propiedades con el nombre del parquet (1), el servicio vinculado (2) y la ruta (seleccionando desde la carpeta (3)), indicamos que el esquema proviene de la conexión o esquema y finalizamos con el botón “OK/Create”.
+ 
+m.	Dejamos en Copy behavior: None y pasamos a la pestaña de Mapping (Aquí se puede personalizar la forma de conversión de los campos de las tablas)
+ 
+n.	Para traer los Esquemas desde la conexión presionamos “Import schemas” y listo.
+ 
+
+
+o.	 Terminamos, las pestañas de Settings y User Properties quedan por defecto.
+p.	 Ahora vamos a publicar y para ello presionamos “publish all”, se debe ver un número 3. Y debe salir que no hay errores, de lo contrario deben corregirse con las recomendaciones que brinda la interfaz
+ 
+ 
+q.	Finalmente vamos a ejecutar el pipeline, para ello se selecciona el pipeline y se presiona en “Add trigger”  seguido de “Trigger now” (2). 
+ 
+r.	Al ejecutarlo, podemos ver en el monitor (1) el progreso y una vez finalizado aparecerá verde (2).
+ 
+s.	Con esto se da por finalizado y ahora los datos están en Azure Blob Storage.
+
+
+Parte 4 (Conexión con Azure Databricks).
+Durante esta parte crearemos un cluster de Azure Databricks y probaremos algunas consultas básicas.
+a.	Desde el home de Azure, ingresamos a Azure DataBricks.
+ 
+b.	Presionamos “+ Agregar” para crear una nueva instancia.
+ 
+c.	Procedemos a configurar la instancia, insertamos los datos básicos y seleccionamos los elementos de nuestra suscripción creada.
+ 
+d.	Esperamos la implementación.
+ 
+e.	Al finalizar presionar en ir al recurso.
+ 
+f.	Presionar ir al recurso, y proceder a iniciar área de trabajo 
+  
+
+g.	Ahí en la barra izquierda seleccionamos los clusters
+ 
+
+h.	Asignamos un nombre, seleccionamos un solo nodo y la versión 7.5 ML sin GPU.
+ 
+i.	Creamos un nuevo notebook.
+ 
+j.	Incluimos el código disponible en el html (databricks) usando los datos propios de su conexión.
+k.	Revisar las consultas SQL.
+ 
+ 
+ 
+ 
+l.	Al finalizar el proceso, los datos han sido creados en el cluster y pueden ser capturados desde PowerBI.
+
+
+
+Parte 5 (Conexión con Power BI).
+En esta última parte usaremos el conector que trae la versión más reciente de PowerBI para conectarse a Azure Databricks.
+a.	Al iniciar Power BI, presione en obtener Datos:
+ 
+b.	Use la barra de búsqueda y seleccione el conector de Azure Databricks
+ 
+c.	Capture los datos del cluster en la configuración, opciones avanzadas. Y complete la información solicitada por el conector.
+ 
+d.	Navegue en el árbol de carpetas hasta la tabla y selecciónela, para después presionar “cargar”
+ 
+e.	Crea algunos objetos visuales y con eso habremos finalizado el proceso.
+
+
+
 
 
 
